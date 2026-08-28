@@ -17,25 +17,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "실습과정 무료상담 | 한평생그룹",
-  description: "한평생과 함께 시작하세요 — 실습과정 무료상담 신청",
+  title: "사회복지사 실습 신청 | 한평생그룹",
+  description: "한평생과 함께 시작하세요 — 사회복지사 실습 신청",
   openGraph: {
-    title: "실습과정 무료상담 | 한평생그룹",
-    description: "한평생과 함께 시작하세요 — 실습과정 무료상담 신청",
+    title: "사회복지사 실습 신청 | 한평생그룹",
+    description: "한평생과 함께 시작하세요 — 사회복지사 실습 신청",
     images: [
       {
         url: "/og-image.png",
         width: 800,
         height: 540,
-        alt: "실습과정 무료상담",
+        alt: "사회복지사 실습 신청",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "실습과정 무료상담 | 한평생그룹",
-    description: "한평생과 함께 시작하세요 — 실습과정 무료상담 신청",
+    title: "사회복지사 실습 신청 | 한평생그룹",
+    description: "한평생과 함께 시작하세요 — 사회복지사 실습 신청",
     images: ["/og-image.png"],
   },
 };
