@@ -24,6 +24,14 @@ const RESIDENCES = [
 ] as const;
 
 /** utm_source → 유입 채널명 (그룹 DB 채널 표기와 맞춘다) */
+// utm_campaign(영문) → 문의DB 소재 표기(한글). 없는 값은 소재 없이 채널만 남긴다.
+const UTM_MATERIAL: Record<string, string> = {
+  news: "소식",
+  chat: "채팅",
+  form: "폼",
+  call: "대표전화",
+};
+
 const UTM_CHANNEL: Record<string, string> = {
   daangn: "당근",
   karrot: "당근",
@@ -44,9 +52,12 @@ function PracticeForm() {
   const clickSource = useMemo(() => {
     const src = (searchParams.get("utm_source") ?? "").toLowerCase();
     const channel = UTM_CHANNEL[src] ?? (src || "직접유입");
-    const material =
-      searchParams.get("utm_campaign") ?? searchParams.get("blog_id");
-    return material ? `${channel}_${material}` : channel;
+    // 소재는 한글 표기 우선(blog_id) → 영문 campaign 은 매핑표로 변환.
+    // 매핑에 없는 값(recruitment 등)은 소재 없이 채널만 기록한다.
+    const raw = searchParams.get("blog_id") ?? searchParams.get("utm_campaign");
+    const material = raw ? (UTM_MATERIAL[raw.toLowerCase()] ?? raw) : "";
+    const known = raw ? /[가-힣]/.test(material) : false;
+    return known ? `${channel}_${material}` : channel;
   }, [searchParams]);
 
   const [step, setStep] = useState(2); // 2 = 입력, 3 = 완료
