@@ -48,6 +48,8 @@ export async function POST(request: NextRequest) {
     const availableNow = body?.available_now === true;
     const hopeYear = body?.hope_year ? Number(body.hope_year) : null;
     const hopeMonth = body?.hope_month ? Number(body.hope_month) : null;
+    // [선택] 광고성 정보 수신 동의 — true 일 때만 동의로 남긴다 (업셀링 문자 대상 판단, 2026-11-17)
+    const marketingAgreed = body?.marketing_agreed === true;
 
     if (!name || !phone) {
       return NextResponse.json(
@@ -76,6 +78,8 @@ export async function POST(request: NextRequest) {
       hope_month: Number.isFinite(hopeMonth) ? hopeMonth : null,
       available_now: availableNow,
       click_source: body?.click_source ?? null,
+      marketing_agreed: marketingAgreed,
+      marketing_agreed_at: marketingAgreed ? new Date().toISOString() : null,
       memo: body?.memo ? String(body.memo).slice(0, 500) : null,
     });
 
